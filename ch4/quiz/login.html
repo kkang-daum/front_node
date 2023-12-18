@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script>
+    window.onload = function() {
+      document.getElementById('form')
+        .addEventListener('submit', async (e) => {
+          e.preventDefault()
+          //유저 입력 데이터 추출.. 
+          const id = e.target.id.value
+          const password = e.target.password.value
+          //ajax 로. 서버 전송.. post 방식으로.. 
+          const resultData = await axios.post('/login', {id, password})
+          alert(JSON.stringify(resultData.data))
+        })
+    }
+  </script>
+</head>
+<body>
+  <!-- html tag 에서 id 속성은 front js 에서 tag(dom node)를 식별할 목적이고..
+  name 은 서버에 유저 입력 데이터를 전송할때 전달할 key 값.. 
+  id=kim&password=1234 -->
+  <form id="form" action="/login" method="post">
+    ID : <input type="text" id="id" name="id"/><br/>
+    PW : <input type="text" id="password" name="password"/><br/>
+    <button type="submit">로그인</button>
+  </form>
+</body>
+</html>
