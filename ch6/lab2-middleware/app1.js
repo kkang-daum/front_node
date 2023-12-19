@@ -46,6 +46,41 @@ app.get('/category/park', (req, res) => {
 //get(), post() 등으로 미들웨어를 등록하면서 next() 를 할 수도 있기는 하지만.. 
 //일반적으로 유저 요청의 최종 처리 개념의 코드가 등로되어 next() 호출을 잘 안한다..
 
+
+//동일 조건으로 여러개의 미들웨어가 실행이 된다면 범위가 좁은 미들웨어를
+//위에 선언하는 것이 좋다..
+app.get('/user/park', (req, res, next) => {
+  //위에 url 경로에 :aaa 이면 req.params.aaa
+  res.send(`user/park... `)
+  //아래의 경우 next() 를 하면 
+  //Cannot set headers after they are sent to the client 에러 발생..
+  // next()
+})
+app.get('/user/:name', (req, res) => {
+  //위에 url 경로에 :aaa 이면 req.params.aaa
+  res.send(`user/:name...${req.params.name} `)
+})
+app.get('*', (req, res) => {
+  //위에 url 경로에 :aaa 이면 req.params.aaa
+  res.send(`*... `)
+})
+
+
+//미들웨어에서 다음 미들웨어를 실행시키기 위해서 사용하는 함수, next()
+//app.use(), app.get() 등에서 next() 를 이용할 수도 있지만.. 
+
+//보통의 경우 app.use() 로 등록하는 미들웨어는 여러 요청시 공통으로 실행될 로직이어서
+//공통 부분 실행되고 다음 미들웨어가 실행되게 next() 를 활용한다..
+
+//app.get(), app.post() 들은 보통 라우터여서 유저 요청시 유저 화면이 조정되는 결과를
+//전송하는 역할이어서.. 응답을 하기 위해서..
+//next() 에 의해 여러 미들웨어가 실행될수 있기는 하지만.. res.send() 는 여러번 실행
+//시킬 수 없다..
+
+
+
+
+
 app.listen(app.get('port'), ()=>{
   console.log(app.get('port'), '번 포트로 대기중')
 })
