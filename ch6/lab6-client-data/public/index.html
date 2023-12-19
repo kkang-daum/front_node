@@ -53,6 +53,7 @@
   <!-- step3.. form - body -->
   <h3>form body</h3>
   <p>
+    <!-- post 방식이면 유저 입력 문자열이 request body 로 전달..  -->
     <form action="form" method="post">
       name : <input type="text" name="name"/><br/>
       좋아하는 과일은 : <br/>
@@ -89,8 +90,12 @@
     let button1 = document.getElementById('button1')
     button1.addEventListener('click', function(){
       var xhr = new XMLHttpRequest();
+      //post - method
+      //json1 - url
+      //true - 비동기..
       xhr.open('post', 'json1', true);
       xhr.setRequestHeader('content-type','application/json')
+      //응답 결과 처리..
       xhr.onload = function(){
         var result = xhr.responseText;
         let resultDom = document.getElementById('result1')
@@ -100,6 +105,7 @@
         name: 'kim',
         score: 10
       }
+      //데이터 전송.. 
 		  xhr.send(JSON.stringify(obj));
     })
 
