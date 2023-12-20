@@ -11,6 +11,10 @@ const nunjucks = require('nunjucks')
 
 const { sequelize } = require('./models')//파일명 명시하지 않으면 index.js
 
+const indexRouter = require('./routes')
+const userRouter = require('./routes/users')
+const commentRouter = require('./routes/comments')
+
 const app = express()
 app.set('port', process.env.PORT || 3000)
 
@@ -36,6 +40,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
+
+app.use('/', indexRouter)
+app.use('/users', userRouter)
+app.use('/comments', commentRouter)
 
 //404처리..
 app.use((req, res, next) => {
