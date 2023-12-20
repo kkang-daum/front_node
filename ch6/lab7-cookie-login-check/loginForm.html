@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h3>Cookie - 로그인 id 정보 기억</h3>
+  <form action="login" method="post">
+    ID : <input type="text" name="id" id="id"/><br/>
+    PW : <input type="password" name="pw"/><br/>
+    <!-- checkbox 에서 value 속성을 명시하지 않으면.. 체크되었을때 서버에 on 값이 전달 -->
+    <input type="checkbox" name="id_check" id="id_check"/>아이디 기억하기<br/>
+    <input type="submit" value="로그인"/>
+  </form>
+  <script>
+    //쿠키 데이터를 체크해서.. 아이디가 출력되게 하는 기법은
+    //back-end template 을 이용해서 back-end 에서 처리할 수도 있지만..
+    //클라이언트 js 에서 처리..
+    function get_cookie(name){//매개변수 이름에 해당되는 쿠키 데이터 리턴..
+      var value = document.cookie.match("(^|;) ?"+name+"=([^;]*)(;|$)")
+      return value ? value[2] : null;
+    }
+    let cookieId = get_cookie('loginId')
+    if(cookieId){
+      //설정된 쿠키 값이 있다면.. 화면 조정, id 출력, checkbox 체크된 상태
+      document.getElementById('id').value = cookieId
+      document.getElementById('id_check').checked = true
+    }
+  </script>
+</body>
+</html>
