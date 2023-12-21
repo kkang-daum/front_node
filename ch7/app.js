@@ -14,6 +14,7 @@ const { sequelize } = require('./models')//파일명 명시하지 않으면 inde
 const indexRouter = require('./routes')
 const userRouter = require('./routes/users')
 const commentRouter = require('./routes/comments')
+const testRouter = require('./routes/test')
 
 const app = express()
 app.set('port', process.env.PORT || 3000)
@@ -44,6 +45,7 @@ app.use(express.urlencoded({extended: true}))
 app.use('/', indexRouter)
 app.use('/users', userRouter)
 app.use('/comments', commentRouter)
+app.use('/test', testRouter)
 
 //404처리..
 app.use((req, res, next) => {
