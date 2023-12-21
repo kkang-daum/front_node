@@ -8,6 +8,7 @@ router.route('/')
   .get(async (req, res, next)=>{
     try{
       const users = await User.findAll()
+      res.json(users)
     }catch(err){
       console.log(err)
       next(err)
@@ -20,6 +21,7 @@ router.route('/')
         age: req.body.age,
         married: req.body.married
       })
+      console.dir(user)
       res.status(200).json(user)
     }catch(err){
       console.log(err)
